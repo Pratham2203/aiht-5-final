@@ -79,7 +79,9 @@ import joblib
 import os
 
 app = Flask(__name__, static_folder="static", template_folder="static")
-CORS(app)
+
+CORS(app, origins=['https://your-render-app-url.com', 'http://localhost:5000','http://localhost:3000'])
+
 
 # Load the trained model
 model_path = os.path.join(os.path.dirname(__file__), '../models/ensemble.pkl')
