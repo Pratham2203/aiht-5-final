@@ -72,39 +72,61 @@
 #     app.run(host='0.0.0.0', port=5000, debug=True)
 
 
+# from flask import Flask, request, jsonify, send_from_directory
+# from flask_cors import CORS
+# import numpy as np
+# import joblib
+# import os
+
+# app = Flask(__name__, static_folder="static", template_folder="static")
+
+# CORS(app, origins=['https://your-render-app-url.com','http://127.0.0.1:5000/predict', 'http://localhost:5000','http://localhost:3000'])
+
+
+# # Load the trained model
+# model_path = os.path.join(os.path.dirname(__file__), '../models/ensemble.pkl')
+# voting_clf = joblib.load(model_path)
+
+# @app.route('/predict', methods=['POST'])
+# def predict():
+#     data = request.json
+#     features = np.array(data['features']).reshape(1, -1)
+#     prediction = voting_clf.predict(features)
+#     risk = 'High' if prediction[0] == 1 else 'Low'
+#     return jsonify({'risk': risk})
+
+# # Serve frontend
+# @app.route("/", defaults={"path": ""})
+# @app.route("/<path:path>")
+# def serve_static(path):
+#     if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+#         return send_from_directory(app.static_folder, path)
+#     return send_from_directory(app.static_folder, "index.html")  # Serve index.html for SPA
+
+# if __name__ == '__main__':
+#     port = int(os.environ.get("PORT", 5000))  # Render assigns a port dynamically
+#     # app.run(host='0.0.0.0', port=port, debug=False)
+#     app.run(host='0.0.0.0', port=5000, debug=True)
+ 
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import numpy as np
-import joblib
 import os
+import random  # <-- Add this
 
 app = Flask(__name__, static_folder="static", template_folder="static")
 
-CORS(app, origins=['https://your-render-app-url.com','http://127.0.0.1:5000/predict', 'http://localhost:5000','http://localhost:3000'])
+CORS(app, origins=[
+    'https://your-render-app-url.com',
+    'http://127.0.0.1:5000/predict',
+    'http://localhost:5000',
+    'http://localhost:3000'
+])
 
-
-# Load the trained model
-model_path = os.path.join(os.path.dirname(__file__), '../models/ensemble.pkl')
-voting_clf = joblib.load(model_path)
-
+# Randomized prediction (Fake results)
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = request.json
-    features = np.array(data['features']).reshape(1, -1)
-    prediction = voting_clf.predict(features)
-    risk = 'High' if prediction[0] == 1 else 'Low'
-    return jsonify({'risk': risk})
-
-# Serve frontend
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def serve_static(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, "index.html")  # Serve index.html for SPA
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render assigns a port dynamically
-    # app.run(host='0.0.0.0', port=port, debug=False)
-    app.run(host='0.0.0.0', port=5000, debug=True)
- 
+    fake_risks = ['High', 'Low', 'Moderate', 'Extremely Risky']
+    random_risk = random.choice(fake_risks)
+    return jsonify({'risk': random_risk})
