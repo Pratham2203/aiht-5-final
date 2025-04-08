@@ -130,3 +130,8 @@ def predict():
     fake_risks = ['High', 'Low', 'Moderate', 'Extremely Risky']
     random_risk = random.choice(fake_risks)
     return jsonify({'risk': random_risk})
+
+if __name__ == '__main__':
+    #  port = int(os.environ.get("PORT", 5000))  # Render assigns a port dynamically
+    #app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)

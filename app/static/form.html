@@ -11,7 +11,7 @@
 
     <style>
         /* Existing styles */
-    
+
         /* Loading bar styles */
         #loadingBar {
             display: none;
@@ -22,7 +22,7 @@
             overflow: hidden;
             margin-bottom: 20px;
         }
-    
+
         #loadingBar .progress {
             height: 100%;
             width: 0;
@@ -86,7 +86,13 @@
         <div class="result" id="result"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function handleSubmit() {
+            const risks = ['Less Risk', 'High Risk', 'Moderate Risk', 'Extreme Risk'];
+            const randomRisk = risks[Math.floor(Math.random() * risks.length)];
+            alert("Predicted Heart Disease Risk: " + randomRisk);
+        }
+    </script>
 </body>
 
 </html>
