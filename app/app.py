@@ -80,7 +80,7 @@ import os
 
 app = Flask(__name__, static_folder="static", template_folder="static")
 
-CORS(app, origins=['https://your-render-app-url.com', 'http://localhost:5000','http://localhost:3000'])
+CORS(app, origins=['https://your-render-app-url.com','http://127.0.0.1:5000/predict', 'http://localhost:5000','http://localhost:3000'])
 
 
 # Load the trained model
